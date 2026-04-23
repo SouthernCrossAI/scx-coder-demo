@@ -114,47 +114,11 @@ Place it at:
 }
 ```
 
-## Step 6 — Add `AGENTS.md` to work around the bash tool bug
+## Step 6 — Restart opencode
 
-Save this as `AGENTS.md` in the same directory as `opencode.json`. This patches around opencode issue #13146 — the bash tool's schema forces models into failure/retry loops on optional parameters.
+Fully quit the TUI and relaunch. Provider configs don't hot-reload.
 
-```markdown
-# Tool Usage Rules
-
-## Bash tool
-
-When calling the `bash` tool, you MUST:
-
-1. Always include a `description` parameter — a 5-10 word string describing what the command does.
-2. For optional parameters like `timeout`, OMIT the key entirely if not needed. Never pass `null`.
-3. For optional string parameters like `workdir`, OMIT the key entirely if not needed. Never pass `null` or empty strings.
-
-### Correct examples
-
-Basic command:
-{"command": "ls -la", "description": "List current directory files"}
-
-With timeout:
-{"command": "npm test", "description": "Run test suite", "timeout": 60000}
-
-### Wrong examples
-
-Missing description (will fail with Zod validation error):
-{"command": "ls -la"}
-
-Null timeout (will fail with "expected number, received null"):
-{"command": "ls -la", "description": "List files", "timeout": null}
-
-## General
-
-Apply the same rule to any tool with optional parameters: if you don't need the parameter, omit the key — don't emit `null`.
-```
-
-## Step 7 — Restart opencode
-
-Fully quit the TUI and relaunch. Provider configs and `AGENTS.md` don't hot-reload.
-
-## Step 8 — Verify everything loaded
+## Step 7 — Verify everything loaded
 
 Inside opencode:
 
@@ -200,12 +164,12 @@ You should see:
 
 | Model | Good for | Cost (per Mtok in/out) |
 |---|---|---|
-| `scx-ai/coder` | Daily coding, edits, file ops | ~$0.04 / $0.08 |
-| `scx-ai/MAGPiE` | Cheap reasoning, long-output writing | ~$0.022 / $0.059 |
-| `openai/gpt-5.4` | Complex agentic tasks, multi-step workflows, vision | ~$2.50 / $15 |
-| `anthropic/claude-sonnet-4-6` | Strong coding at mid-tier price, 1M context | ~$3 / $15 |
-| `anthropic/claude-opus-4-6` | Deep reasoning, large codebases, agentic work | ~$5 / $25 |
-| `anthropic/claude-opus-4-7` | Strongest available reasoning, best for planning and agentic | ~$5 / $25 |
+| `scx-ai/coder` | Daily coding, edits, file ops | A$0.30 / A$2.02 |
+| `scx-ai/MAGPiE` | Cheap reasoning, long-output writing | A$0.30 / A$2.02 |
+| `openai/gpt-5.4` | Complex agentic tasks, multi-step workflows, vision | ~US$2.50 / US$15 |
+| `anthropic/claude-sonnet-4-6` | Strong coding at mid-tier price, 1M context | ~US$3 / US$15 |
+| `anthropic/claude-opus-4-6` | Deep reasoning, large codebases, agentic work | ~US$5 / US$25 |
+| `anthropic/claude-opus-4-7` | Strongest available reasoning, best for planning and agentic | ~US$5 / US$25 |
 
 **Rough workflow:** SCX for writing code, Opus 4.7 for planning architecture, Sonnet 4.6 when you want Claude-quality coding at Sonnet pricing, GPT-5.4 for second opinions or vision-heavy tasks.
 
