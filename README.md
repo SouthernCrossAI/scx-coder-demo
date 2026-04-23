@@ -172,9 +172,3 @@ You should see:
 | `anthropic/claude-opus-4-7` | Strongest available reasoning, best for planning and agentic | ~US$5 / US$25 |
 
 **Rough workflow:** SCX for writing code, Opus 4.7 for planning architecture, Sonnet 4.6 when you want Claude-quality coding at Sonnet pricing, GPT-5.4 for second opinions or vision-heavy tasks.
-
-## Two small caveats
-
-**Claude Pro/Max OAuth plugins:** Opencode's docs note Anthropic explicitly prohibits using Claude Pro/Max subscriptions through third-party coding tools. Previous opencode versions bundled a plugin for this; it was removed in 1.3.0. If you want to use Claude via a subscription, use the supported **Claude Pro/Max** option in `/connect` (which is Anthropic-sanctioned) or pay API-by-token. Don't install third-party auth plugins for this.
-
-**Model ID verification:** I used `claude-opus-4-7`, `claude-opus-4-6`, and `claude-sonnet-4-6` based on Anthropic's docs and announcements. If any fail to load with "model not found" after restart, the real ID may include a date snapshot like `claude-opus-4-7-20260416`. In that case run `opencode models anthropic --refresh` to see the canonical strings Anthropic's API returns, and swap them in.
