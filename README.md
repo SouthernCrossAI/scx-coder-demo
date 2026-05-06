@@ -1,5 +1,43 @@
 # Mixing SCX `coder` with OpenAI GPT-5.4 and Anthropic Claude in opencode
 
+This guide assumes you want to use SCX `coder` as the default build model in opencode, with OpenAI and Anthropic available as optional switchable models.
+
+## New to opencode?
+
+Start here if this is your first opencode install. A fresh opencode install has no models connected yet, so the config below will not work until you install opencode and connect at least one AI provider.
+
+1. Download and install opencode from the official download page:
+
+   <https://opencode.ai/download>
+
+   Terminal install option:
+
+   ```bash
+   curl -fsSL https://opencode.ai/install | bash
+   ```
+
+2. Launch opencode once:
+
+   ```bash
+   opencode
+   ```
+
+3. Open settings and connect your first model/provider.
+
+   In the TUI, use the settings/connect flow to add a provider such as OpenAI, Anthropic, GitHub Copilot, or another supported model provider. If you are using API keys, have them ready before starting this step.
+
+4. Confirm opencode can see at least one model.
+
+   Inside opencode:
+
+   ```
+   /models
+   ```
+
+   If `/models` is empty, finish connecting a provider before continuing.
+
+After opencode is installed and can see at least one model, continue with the SCX/OpenAI/Anthropic setup below.
+
 ## Step 1 — Authenticate SCX.ai
 
 ```bash
